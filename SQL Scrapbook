@@ -1,0 +1,30 @@
+
+CREATE TABLE testTBL2(
+	id Number(4) PRIMARY KEY,
+	userName NCHAR(3) not null,
+	age Number(2),
+	nation NCHAR(4) default '대한민국'
+	
+);
+
+SELECT * FROM testTBL2 ORDER BY id DESC;
+INSERT INTO testTBL2(id,userName,age,nation) 
+VALUES (1,'admin',20,'한국');
+
+
+SELECT LAST_NAME,FIRST_NAME
+FROM EMPLOYEES;
+
+SELECT userID,amount
+FROM buyTBL
+ORDER BY userID;
+
+
+SELECT userID, SUM(amount)
+FROM buyTBL
+GROUP BY userID;
+
+INSERT INTO 테이블명(속성순서)
+VALUES (속성의 순서에 따른 값)
+
+
