@@ -1,9 +1,6 @@
 package mc.sn.day14;
 
 public class StudentDTO {
-		
-	
-
 	private int stdNo;
 	private String email;
 	private int kor;
@@ -83,7 +80,6 @@ public class StudentDTO {
 		this.localCode = localCode;
 	}
 	
-	//990001,addx, 17, 29, 16, 49, 43,154,C,A,C
 	
 	// 위의 필드에 대해서 get/set을 만드시오
 	// 학번, 국,영,수와 지역,담임,성취도 정보를 보여주는 toString 오버라이드 하시오
@@ -93,3 +89,10 @@ public class StudentDTO {
 		return this.stdNo+" "+this.kor+" "+this.eng+" "+this.math+" "+this.MgrCode+" "+this.accPoint+" "+this.localCode;
 	}
 }
+
+
+
+
+
+
+

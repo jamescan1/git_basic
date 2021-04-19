@@ -7,11 +7,10 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-
-import mc.sn.day14.StudentDTO;
 
 public class TestQuery {
 	private ArrayList<StudentDTO> list;
@@ -24,47 +23,80 @@ public class TestQuery {
 		TestQuery tq = new TestQuery();
 		try {
 			tq.query1();
-			tq.query3();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NumberFormatException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
+			//tq.query3();
+			tq.quiz2();
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} 
 	}
+	public void quiz2() throws ClassNotFoundException, SQLException {
+		//기사 테이블의 내용을 조회
+		//지역코드가 B이고 국어+영어 점수가 최대인 것 조회
+		String sql = "select max(kor+eng) from gisaTBL where localCode = ?";
+		Connection con = this.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, "B");
+		ResultSet rs = pstmt.executeQuery();
+		//테이블 처리 방법
+		while(rs.next()) {
+			System.out.println("max value is "+rs.getInt(1));
+		}
+		rs.close();
+		pstmt.close();
+		con.close();
+	}
+	public void query4() throws ClassNotFoundException, SQLException {
+		//기사 테이블의 내용을 조회
+		//지역코드가 B이고 국어+영어 점수가 최대인 것 조회
+		String sql = "select stdNo,email,kor,eng from gisaTBL "
+													+ "where localCode = ?";
+		Connection con = this.getConnection();
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		pstmt.setString(1, "B");
+		ResultSet rs = pstmt.executeQuery();
+		//테이블 처리 방법
+		while(rs.next()) {
+			int stdNo = rs.getInt("stdNo");
+			String email = rs.getString("email");
+			int kor = rs.getInt("kor");
+			int eng = rs.getInt("eng");
+			System.out.println(stdNo+","+email+","+kor+","+eng);
+			//break;
+		}
+		rs.close();
+		pstmt.close();
+		con.close();
+	}
 	public void query3() throws NumberFormatException, IOException, SQLException, ClassNotFoundException {
-		this.makeGisaData();
+		//this.makeGisaData();
 		System.out.println(list.size());
 		//gisaTBL에 한 줄의 값을 삽입
-		StudentDTO dto = list.get(1);
+		//StudentDTO dto = null;
 		Connection con = this.getConnection();
 		// 데이터 삽입 쿼리 작성해 보세요
 		String sql = "INSERT INTO gisaTBL VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, dto.getStdNo());
-		pstmt.setString(2, dto.getEmail());
-		pstmt.setInt(3, dto.getKor());
-		pstmt.setInt(4, dto.getEng());
-		pstmt.setInt(5, dto.getMath());
-		pstmt.setInt(6, dto.getSci());
-		pstmt.setInt(7, dto.getHist());
-		pstmt.setInt(8, dto.getTotal());
-		pstmt.setString(9, dto.getMgrCode());
-		pstmt.setString(10, dto.getAccPoint());
-		pstmt.setString(11, dto.getLocalCode());
-		
-		int affectedCount = pstmt.executeUpdate();
-		if(affectedCount>0) {
-			System.out.println("입력완료");
-		} else {
-			System.out.println("입력실패");
+		for (StudentDTO dto : list) {
+			pstmt.setInt(1, dto.getStdNo());
+			pstmt.setString(2, dto.getEmail());
+			pstmt.setInt(3, dto.getKor());
+			pstmt.setInt(4, dto.getEng());
+			pstmt.setInt(5, dto.getMath());
+			pstmt.setInt(6, dto.getSci());
+			pstmt.setInt(7, dto.getHist());
+			pstmt.setInt(8, dto.getTotal());
+			pstmt.setString(9, dto.getMgrCode());
+			pstmt.setString(10, dto.getAccPoint());
+			pstmt.setString(11, dto.getLocalCode());
+			int affectedCount = pstmt.executeUpdate();
+			
+			if(affectedCount>0) {
+				System.out.println("입력완료");
+			} else {
+				System.out.println("입력실패");
+			}
+			
 		}
 		pstmt.close();
 		con.close();
