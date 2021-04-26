@@ -4,20 +4,21 @@
 <meta charset="UTF-8">
 <title>Clock</title>
 	<script type="text/javascript">
-	
+		var date_info
 		function start(){
+		
 			var clock = document.getElementById('clock');
+			date_info = setInterval(function(){
+				var now = new Date();
+				clock.innerHTML = now.toLocaleString();
+				}, 1000);
 			 alert("start");
-		};
-/* 		window.onload = function(){
-			var clock = document.getElementById('clock');
-			
-			setInterval(function(){
-				var now = new date();
-				clock.innerHTML = now.toString();
-				
-			},1000);
-		}; */
+		}
+		
+		function stop(){
+			alert('stop');
+			clearInterval(date_info);
+		}
 	</script>
 	<style>
 	</style>
@@ -25,5 +26,6 @@
 <body>
 		<h1 id ="clock"></h1>
 		<button onclick ="start()">시작</button>
+		<button onclick="stop()">멈춤</button>
 </body>
 </html>
