@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Clock</title>
+	<script type="text/javascript">
+	
+		function start(){
+			 alert("start");
+		};
+		window.onload = function(){
+			var clock = document.getElementById('clock');
+			
+			setInterval(function(){
+				var now = new date();
+				clock.innerHTML = now.toString();
+				
+			},1000);
+		};
+	</script>
+	<style>
+	</style>
+</head>
+<body>
+		<h1 id ="clock"></h1>
+		<button onclick ="start()">시작</button>
+</body>
+</html>
