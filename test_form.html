@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Form Test</title>
+	<script>
+		function checkId(){
+			var userid = document.getElementById("userId");
+			alert('checkID '+userid.value);
+		}
+		
+		function checkPwd1(){
+			var pwd1 = document.getElementById("pwd1");
+			alert("pwd1 "+pwd1.value);
+		}
+		
+		function comparePwd(){
+			var pwd1 = document.getElementById("pwd1");
+			var pwd2 = document.getElementById("pwd2");
+			alert(pwd1.value+","+pwd2.value);
+			if(pwd1.value==pwd2.value){
+				alert("same");
+			} else {
+				alert("different");
+			}
+		}
+		
+		function checkGender(){
+			var genders = document.getElementsByName("gender");
+			for(var i=0;i<genders.length;i++){
+				if(genders[i].checked){
+					alert(genders[i].value);
+				}
+			}
+			//alert('gender '+genders.length);
+		}
+		
+		function checkLang(){
+			var langs = document.getElementsByName("lang");
+			for(var i=0;i<langs.length;i++){
+				if(langs[i].checked){
+					alert(langs[i].value);
+				}
+			}
+		}
+		
+		function checkSelect(){
+			var hobby = document.getElementById("hobby");
+			alert('select '+hobby.value);
+		}
+		
+		function checkData(){
+			var flag = false;
+			alert('submit');
+			//취미가 2개 이상 선택되었는지 확인하고 이하면 2개 이상 선택하라는 메시지를 출력하는 코드 작성
+			var count = 0;
+			var langs = document.getElementsByName("lang");
+			for(var i=0;i<langs.length;i++){
+				if(langs[i].checked){
+					count++;
+				}
+			}
+			
+			if(count>=2){
+				alert('2개 이상 선택 하였음');
+				flag = true;
+			} else {
+				alert('2개 이상 선택해야 합니다.');
+			}
+			return flag;
+		}
+	</script>
+</head>
+<body>
+<form action="" method="get" onsubmit="return checkData()">
+	<table>
+		<tr>
+			<td>userID :</td>
+			<td><input type="text" id="userId" name="id"></td>
+			<td><button onclick="checkId()">확인</button></td>
+		</tr>
+		<tr>
+			<td>password1:</td>
+			<td><input type="password" id="pwd1" name="pwd1" value=""></td>
+			<td><button onclick="checkPwd1()">확인</button></td>
+		</tr>
+		<tr>
+			<td>password2:</td>
+			<td><input type="password" id="pwd2" name="pwd2" value="" onblur="comparePwd()"></td>
+			<td><button onclick="comparePwd()" disabled="disabled">확인</button></td>
+		</tr>
+		<tr>
+			<td>성별 : </td>
+			<td>
+				<input type="radio" id="gender1" name="gender" value="M">남
+				<input type="radio" id="gender2" name="gender" value="F" checked="checked">여
+			</td>
+			<td><button onclick="checkGender()">확인</button></td>
+		</tr>
+		<tr>
+			<td>사용언어 :</td>
+			<td>
+				<input type="checkbox" id="" name="lang" value="1" checked="checked">자바
+		        <input type="checkbox" id="" name="lang" value="2">SQL
+		        <input type="checkbox" id="" name="lang" value="3">자바스크립트
+		        <input type="checkbox" id="" name="lang" value="4">파이썬 
+			</td>
+			<td><button onclick="checkLang()">확인</button></td>
+		</tr>
+		<tr>
+			<td>취미 :</td>
+			<td>
+				<select id="hobby" name="hobby" onchange="checkSelect()">
+					<option value="0">--선택--
+					<option value="1" selected="selected">코딩
+					<option value="2">분석
+					<option value="3">테스트
+					<option value="4">설계	
+		      	</select>
+			</td>
+			<td><button onclick="checkSelect()" disabled="disabled">확인</button></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><input type="submit" value="전송"></td>
+		</tr>
+	</table>
+</form>
+</body>
+</html>
